@@ -4,31 +4,64 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tangent Code Studios</title>
-  <!-- Link the CSS file -->
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-  <section class="section-padding container">
-    <h1 class="text-h1">Responsive Headline</h1>
-    <h2 class="text-h2">Subheadline Text</h2>
-    <h3 class="text-h3">Small Header</h3>
-    <p class="text-body">
-      This is body text using the standard size. It should be greyish (muted) and easy to read.
-      Resize the browser window to watch the headlines automatically scale up and down.
-    </p>
-    <p class="text-small">This is small utility text.</p>
-  </section>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="/" class="logo">Tangent</a>
+      
+      <!-- Desktop Nav -->
+      <nav class="nav-menu">
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#about" class="nav-link">About</a>
+      </nav>
 
-  <section class="section-padding container">
-    <h1 class="text-h1">UI Components</h1>
-    
-    <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-        <!-- Primary Button -->
-        <a href="#" class="btn btn-primary">Get Started</a>
-        
-        <!-- Secondary Button -->
-        <button class="btn btn-secondary">View Work</button>
+      <!-- CTA & Mobile Toggle -->
+      <div class="header-actions">
+        <a href="#contact" class="btn btn-primary btn-small">Get a Quote</a>
+        <button class="hamburger" aria-label="Menu">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
-  </section>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu">
+      <nav>
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link highlight">Get a Quote</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="section-padding container">
+      <h1 class="text-h1">Content coming soon...</h1>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-col">
+        <h3 class="text-h3">Tangent</h3>
+        <p class="text-small">Building digital products that matter.</p>
+      </div>
+      <div class="footer-col">
+        <p class="text-small">&copy; 2025 Tangent Code Studios</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/main.js"></script>
 </body>
+</html>
