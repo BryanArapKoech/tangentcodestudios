@@ -1,0 +1,15 @@
+tangentcodestudios/
+├── config/           # Backend configurations
+│   └── db.js         # Database connection logic
+├── database/         # SQL scripts
+│   ├── schema.sql
+│   └── seed.js       # ()
+├── public/           # FRONTEND (Browser accessible)
+│   ├── css/
+│   ├── js/
+│   ├── images/
+│   └── index.html
+├── .env
+├── server.js         # BACKEND Entry point
+├── test-db.js        # Utility script
+└── package.json
