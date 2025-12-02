@@ -122,42 +122,17 @@
           <h2 class="text-h2">Selected Work</h2>
           <p class="text-body">Our latest digital productions.</p>
         </div>
-        <!-- View All Button (Hidden on mobile usually, but good to have) -->
+        <!-- View All Button (Hidden on mobile) -->
         <a href="#" class="btn btn-secondary">View All</a>
       </div>
 
-      <!-- Grid Container (Task 16 will inject data here later) -->
+      <!-- Grid Container -->
       <div id="portfolio-grid" class="portfolio-grid">
-        
-        <!-- STATIC CARD 1 (Placeholder) -->
-        <a href="#" class="card-portfolio">
-          <img src="https://placehold.co/600x400/222/FFF?text=Project+1" alt="Project 1" class="card-img">
-          <div class="card-content">
-            <span class="card-category">Web Development</span>
-            <h3 class="card-title">Modern E-Commerce</h3>
-          </div>
-        </a>
-
-        <!-- STATIC CARD 2 (Placeholder) -->
-        <a href="#" class="card-portfolio">
-          <img src="https://placehold.co/600x400/333/FFF?text=Project+2" alt="Project 2" class="card-img">
-          <div class="card-content">
-            <span class="card-category">UI Design</span>
-            <h3 class="card-title">FinTech Dashboard</h3>
-          </div>
-        </a>
-
-        <!-- STATIC CARD 3 (Placeholder) -->
-        <a href="#" class="card-portfolio">
-          <img src="https://placehold.co/600x400/444/FFF?text=Project+3" alt="Project 3" class="card-img">
-          <div class="card-content">
-            <span class="card-category">Mobile App</span>
-            <h3 class="card-title">Travel Companion</h3>
-          </div>
-        </a>
-
+        <!-- Content will be loaded via main.js -->
       </div>
+
     </section>
+
   </main>
 
   <!-- Footer -->
@@ -173,6 +148,55 @@
     </div>
   </footer>
 
+  <!-- CONTACT MODAL -->
+  <div id="contact-modal" class="modal-backdrop hidden">
+    <div class="modal-content">
+      <button id="modal-close" class="modal-close-btn">&times;</button>
+      
+      <div class="modal-header">
+        <h2 class="text-h2">Let's Talk</h2>
+        <p class="text-body">Tell us about your project.</p>
+      </div>
+
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required placeholder="Jane Doe">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="jane@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="project_type">Project Type</label>
+          <select id="project_type" name="project_type">
+            <option value="Web Development">Web Development</option>
+            <option value="UI Design">UI/UX Design</option>
+            <option value="Mobile App">Mobile App</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="budget">Budget</label>
+          <select id="budget" name="budget">
+            <option value="<5k">&lt; $5k</option>
+            <option value="5k-10k">$5k - $10k</option>
+            <option value="10k+">$10k+</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="How can we help?"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+      </form>
+    </div>
+  </div>
   <!-- Scripts -->
   <script src="/js/main.js"></script>
 </body>
