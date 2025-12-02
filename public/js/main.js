@@ -70,27 +70,55 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-    /* --- Dynamic Portfolio Loader --- */
+ 
+/* --- Dynamic Portfolio Loader & Filtering --- */
     const portfolioGrid = document.getElementById('portfolio-grid');
+    const filterBtns = document.querySelectorAll('.filter-btn');
 
+    // Initial Load
     if (portfolioGrid) {
-        loadProjects();
+        loadProjects(); 
     }
 
-    async function loadProjects() {
+    // Filter Button Listeners
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update Active State
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Fetch Data
+            const category = btn.getAttribute('data-filter');
+            loadProjects(category);
+        });
+    });
+
+    async function loadProjects(category = '') {
         try {
-            const response = await fetch('/api/projects');
+            // Build URL with query param
+            let url = '/api/projects';
+            if (category) {
+                url += `?category=${category}`;
+            }
+
+            const response = await fetch(url);
             if (!response.ok) throw new Error('Failed to fetch');
             
             const projects = await response.json();
             
-            // Clear container just in case
-            portfolioGrid.innerHTML = '';
+            // Clear container
+            if (portfolioGrid) portfolioGrid.innerHTML = '';
+
+            // Handle Empty State
+            if (projects.length === 0) {
+                if (portfolioGrid) portfolioGrid.innerHTML = '<p class="text-body">No projects found in this category.</p>';
+                return;
+            }
 
             // Generate Cards
             projects.forEach(project => {
                 const card = document.createElement('a');
-                card.href = `/project.html?slug=${project.slug}`; // Link to detail page (Task 21)
+                card.href = `/project.html?slug=${project.slug}`; 
                 card.className = 'card-portfolio';
                 
                 card.innerHTML = `
@@ -101,14 +129,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
                 
-                portfolioGrid.appendChild(card);
+                if (portfolioGrid) portfolioGrid.appendChild(card);
             });
 
         } catch (err) {
             console.error('Error loading projects:', err);
-            portfolioGrid.innerHTML = '<p class="text-body">Unable to load projects at this time.</p>';
+            if (portfolioGrid) portfolioGrid.innerHTML = '<p class="text-body">Unable to load projects at this time.</p>';
         }
     }
+
+
     /* --- Contact Modal Logic --- */
     const modal = document.getElementById('contact-modal');
     const modalCloseBtn = document.getElementById('modal-close');

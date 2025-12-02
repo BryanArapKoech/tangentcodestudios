@@ -516,3 +516,17 @@ input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: var(--color-primary);
 }
+
+/* --- WORK PAGE FILTERS --- */
+.filter-bar {
+    display: flex;
+    gap: 1rem;
+    margin-block: 2rem 3rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn.active {
+    background-color: var(--color-text-main);
+    color: var(--color-bg);
+    border-color: var(--color-text-main);
+}
