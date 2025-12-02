@@ -275,3 +275,29 @@ body.no-scroll {
         align-items: flex-end;
     }
 }
+
+/* --- HERO SECTION --- */
+.hero-section {
+    padding-top: calc(var(--header-height) + 4rem); /* Clear fixed header */
+    padding-bottom: 4rem;
+    display: flex;
+    align-items: center;
+    min-height: 80vh; /* Takes up most of the screen */
+    background: radial-gradient(circle at top right, rgba(255, 77, 77, 0.1), transparent 40%);
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero-sub {
+    font-size: 1.25rem; /* Slightly larger than standard body */
+    max-width: 600px;
+    margin-bottom: 2rem;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap; /* Stack buttons on very small screens */
+}
