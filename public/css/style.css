@@ -102,11 +102,11 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: var(--header-height);
+    height: auto;
     background-color: var(--color-bg);
     z-index: 1000;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.3s ease;
 }
@@ -116,6 +116,10 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    height: 80px; /* Specific height for the nav portion */
+    max-width: var(--max-width); /* Center content constraints */
+    margin: 0 auto; /* Center the container */
+    padding-inline: 0; /* Container class handles width, but reset extra padding if needed */
 }
 
 .logo {
@@ -278,7 +282,7 @@ body.no-scroll {
 
 /* --- HERO SECTION --- */
 .hero-section {
-    padding-top: calc(var(--header-height) + 4rem); /* Clear fixed header */
+    padding-top: 130px;
     padding-bottom: 4rem;
     display: flex;
     align-items: center;
@@ -302,6 +306,11 @@ body.no-scroll {
     flex-wrap: wrap; /* Stack buttons on very small screens */
 }
 
+@media (max-width: 768px) {
+    .hero-section {
+        padding-top: 150px; /* Extra space for mobile header stack */
+    }
+}
 
 /* --- VALUE STRIP --- */
 .value-strip {
@@ -529,4 +538,246 @@ input:focus, select:focus, textarea:focus {
     background-color: var(--color-text-main);
     color: var(--color-bg);
     border-color: var(--color-text-main);
+}
+
+
+
+
+/* --- ENTERPRISE FOOTER --- */
+.footer {
+    background-color: #1a1a1a; /* Dark Surface */
+    border-top: 3px solid var(--color-primary); /* Accent Line on top */
+    padding-top: 4rem;
+    padding-bottom: 0;
+    margin-top: auto;
+    font-size: 0.9rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+    .footer-grid { grid-template-columns: 1fr 1fr 1fr 1.5fr; }
+}
+
+.footer-col h4 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+/* Footer Links List */
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+    color: var(--color-text-muted);
+    transition: all 0.2s;
+}
+
+.footer-links a:hover {
+    color: var(--color-primary);
+    padding-left: 5px; /* Subtle movement */
+}
+
+/* Social Icons (Circular) */
+.social-icons {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.social-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: background 0.3s;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.social-btn:hover {
+    background-color: var(--color-primary);
+}
+
+/* Contact Info Block */
+.footer-contact {
+    color: var(--color-text-muted);
+    line-height: 1.8;
+}
+
+.footer-contact strong {
+    color: #fff;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+    background-color: #0f0f0f;
+    padding: 1.5rem 0;
+    border-top: 1px solid #333;
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.footer-bottom-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .footer-bottom-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.bottom-links a {
+    margin-left: 1rem;
+    transition: color 0.2s;
+}
+.bottom-links a:hover { color: #fff; }
+
+
+/* =========================================
+   HEADER & NAVIGATION (Refined)
+   ========================================= */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background-color: var(--color-bg);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* --- 1. Top Bar (Contact Info) --- */
+.top-bar {
+    width: 100%;
+    background-color: #050505;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: block; /* Show on ALL screens */
+}
+
+.top-bar-container {
+    height: 36px; /* Slightly compact */
+    display: flex;
+    align-items: center;
+    /* Mobile: Center the content */
+    justify-content: center; 
+    gap: 1.5rem; 
+    font-size: 0.75rem; /* Smaller font for mobile */
+    font-weight: 500;
+}
+
+/* Desktop: Align to right and increase size */
+@media (min-width: 992px) {
+    .top-bar-container {
+        justify-content: flex-end;
+        font-size: 0.85rem;
+    }
+}
+
+.top-link {
+    color: #888;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+}
+
+.top-link:hover { color: var(--color-primary); }
+
+/* --- 2. Main Navbar --- */
+.header-container {
+    height: 70px; /* Slightly shorter to look sleeker */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Ensure padding so items don't hit the edge */
+    padding-inline: 0; 
+}
+
+/* Logo Optimization */
+.logo {
+    font-size: 1.25rem; /* Default size */
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: white;
+    /* Prevent long text from breaking layout on tiny screens */
+    white-space: nowrap; 
+}
+
+/* Desktop Navigation */
+.nav-menu {
+    display: none;
+}
+
+@media (min-width: 992px) { 
+    .nav-menu {
+        display: flex;
+        gap: 2rem;
+    }
+    .nav-link {
+        font-size: 0.95rem;
+        color: #e0e0e0;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--color-primary); }
+}
+
+/* Header Actions (Button + Hamburger) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* Tighter gap */
+}
+
+/* Mobile specific tweaks for the "Get a Quote" button */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.1rem; /* Smaller logo text on mobile */
+    }
+    
+    .header-actions .btn {
+        padding: 0.5rem 0.8rem; /* Smaller button padding */
+        font-size: 0.75rem;     /* Smaller button text */
+    }
+}
+
+/* --- SCROLL BEHAVIOR --- */
+.header.scrolled {
+    background-color: rgba(15, 15, 15, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+/* On scroll, hide top bar to save space */
+.header.scrolled .top-bar {
+    display: none;
 }

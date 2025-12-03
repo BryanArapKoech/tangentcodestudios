@@ -39,6 +39,23 @@ app.get('/api/projects', async (req, res) => {
   }
 });
 
+// GET /api/projects/:slug (Single Project)
+app.get('/api/projects/:slug', async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const result = await pool.query('SELECT * FROM projects WHERE slug = $1', [slug]);
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+    
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

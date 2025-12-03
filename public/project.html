@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Browse our portfolio of high-performance web development, UI/UX design, and mobile application projects.">
-  <title>Our Work | Tangent Code Studios</title>
+  <meta name="description" content="Case study and project details by Tangent Code Studios. See how we solve complex digital challenges.">
+  <title>Project Details | Tangent Code Studios</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header  -->
   <header class="header">
     <!-- Top Bar -->
     <div class="top-bar">
@@ -54,26 +54,11 @@
     </div>
   </header>
 
-  <main>
-    <section class="section-padding container" style="padding-top: 120px;">
-      <h1 class="text-h1">Selected Work</h1>
-      <p class="text-body" style="max-width: 600px;">
-        A collection of our best digital products across Web, Mobile, and UI Design.
-      </p>
-
-      <!-- FILTER BUTTONS -->
-      <div class="filter-bar">
-        <button class="btn btn-secondary filter-btn active" data-filter="">All</button>
-        <button class="btn btn-secondary filter-btn" data-filter="Web">Web</button>
-        <button class="btn btn-secondary filter-btn" data-filter="UI">UI Design</button>
-        <button class="btn btn-secondary filter-btn" data-filter="App">Apps</button>
-      </div>
-
-      <!-- GRID CONTAINER -->
-      <div id="portfolio-grid" class="portfolio-grid">
-        <!-- Loaded via JS -->
-      </div>
-    </section>
+  <main style="padding-top: 100px;">
+    <!-- DYNAMIC CONTENT CONTAINER -->
+    <div id="project-container" class="container section-padding">
+      <p>Loading project details...</p>
+    </div>
   </main>
 
    <!-- Footer -->
@@ -117,7 +102,7 @@
       <!-- Col 4: Contact Info -->
       <div class="footer-col">
         <!-- Logo -->
-        <a href="/" class="logo" style="font-size: 1.8rem; margin-bottom:1rem; display:block;">Tangent Code Studios</a>
+        <a href="/" class="logo" style="font-size: 1.8rem; margin-bottom:1rem; display:block;"> Tangent Code Studios</a>
         
         <div class="footer-contact">
           <p>
@@ -148,8 +133,8 @@
     </div>
   </footer>
 
-  <!-- Contact Modal (Hidden) -->
-  <!-- FULL CONTACT MODAL -->
+  
+ <!-- FULL CONTACT MODAL -->
   <div id="contact-modal" class="modal-backdrop hidden">
     <div class="modal-content">
       <button id="modal-close" class="modal-close-btn">&times;</button>
@@ -200,5 +185,60 @@
   </div>
 
   <script src="/js/main.js"></script>
+
+  <!-- Page Specific Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const container = document.getElementById('project-container');
+        
+        // 1. Get Slug from URL (e.g., ?slug=modern-ecommerce)
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug');
+
+        if (!slug) {
+            container.innerHTML = '<h1>Project not specified</h1><a href="/work.html" class="btn btn-secondary">Back to Work</a>';
+            return;
+        }
+
+        try {
+            // 2. Fetch Data
+            const res = await fetch(`/api/projects/${slug}`);
+            if (!res.ok) throw new Error('Project not found');
+            const project = await res.json();
+
+            // 3. Render HTML
+            container.innerHTML = `
+                <a href="/work.html" style="color:var(--color-text-muted); margin-bottom: 2rem; display:block;">&larr; Back to Work</a>
+                
+                <span style="color: var(--color-primary); font-weight:600; text-transform:uppercase; letter-spacing:0.05em;">
+                    ${project.category}
+                </span>
+                <h1 class="text-h1" style="margin-top:0.5rem;">${project.title}</h1>
+                
+                <img src="${project.image_url}" alt="${project.title}" style="width:100%; border-radius:8px; margin-block: 3rem;">
+
+                <div style="display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                    <div>
+                        <h3 class="text-h3">The Challenge</h3>
+                        <p class="text-body">${project.content.challenge}</p>
+                    </div>
+                    <div>
+                        <h3 class="text-h3">The Solution</h3>
+                        <p class="text-body">${project.content.solution}</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 4rem; padding: 2rem; background: var(--color-surface); border-radius: 8px; border: 1px solid var(--color-border);">
+                    <h3 class="text-h3">Client: ${project.content.client}</h3>
+                    <p class="text-body">Interested in a similar result?</p>
+                    <a href="#contact" class="btn btn-primary">Start a Project</a>
+                </div>
+            `;
+
+        } catch (err) {
+            container.innerHTML = `<h1>Project Not Found</h1><p>${err.message}</p><a href="/work.html" class="btn btn-secondary">Back to Work</a>`;
+        }
+    });
+  </script>
 </body>
 </html>

@@ -159,9 +159,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('no-scroll');
     };
 
-    // Add click events to all triggers
-    contactTriggers.forEach(trigger => {
-        trigger.addEventListener('click', openModal);
+    // Event Delegation
+    document.addEventListener('click', (e) => {
+        // the clicked element (or its parent) should point to #contact
+        const trigger = e.target.closest('a[href="#contact"]');
+        
+        if (trigger) {
+            // It is a contact button! Open the modal.
+            openModal(e);
+        }
     });
 
     // Close Button
