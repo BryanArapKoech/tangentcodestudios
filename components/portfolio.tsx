@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";
@@ -8,21 +9,21 @@ const projects = [
     category: "Financial Services",
     description:
       "A modern fintech platform with real-time dashboards and secure transactions.",
-    image: "bg-gradient-to-br from-blue-600 to-blue-800",
+    image: "/portfolio/meridian-finance.jpg",
   },
   {
     title: "GreenLeaf Organic",
     category: "E-Commerce",
     description:
       "Full-featured online store with subscription model and inventory management.",
-    image: "bg-gradient-to-br from-emerald-600 to-emerald-800",
+    image: "/portfolio/greenleaf-organic.jpg",
   },
   {
     title: "Atlas Consulting",
     category: "Corporate Website",
     description:
       "Professional corporate site with booking system and client portal.",
-    image: "bg-gradient-to-br from-slate-600 to-slate-800",
+    image: "/portfolio/atlas-consulting.jpg",
   },
 ];
 
@@ -44,12 +45,13 @@ export function Portfolio() {
               key={index}
               className="group cursor-pointer overflow-hidden border-border/50 transition-all hover:shadow-xl"
             >
-              <div
-                className={`relative h-48 ${project.image} flex items-center justify-center`}
-              >
-                <span className="text-4xl font-bold text-white/20">
-                  {project.title.charAt(0)}
-                </span>
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
                 <div className="absolute inset-0 flex items-center justify-center bg-primary/80 opacity-0 transition-opacity group-hover:opacity-100">
                   <ExternalLink className="h-8 w-8 text-primary-foreground" />
                 </div>

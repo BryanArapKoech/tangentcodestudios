@@ -10,14 +10,39 @@ import { Send, Mail, Phone, MapPin } from "lucide-react";
 export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setSubmitted(true);
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      firstName: formData.get("firstName") as string,
+      lastName: formData.get("lastName") as string,
+      email: formData.get("email") as string,
+      message: formData.get("message") as string,
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error || "Failed to send message");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -86,6 +111,11 @@ export function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {error && (
+                  <div className="rounded-lg bg-destructive/10 p-4 text-sm text-destructive">
+                    {error}
+                  </div>
+                )}
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="firstName">First Name</Label>
