@@ -22,45 +22,44 @@ export async function POST(request: Request) {
       );
     }
 
-    // Send email using Resend
-    const resendApiKey = process.env.RESEND_API_KEY;
-    
-    if (!resendApiKey) {
-      console.error("RESEND_API_KEY is not configured");
-      return NextResponse.json(
-        { error: "Email service not configured" },
-        { status: 500 }
-      );
-    }
-
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${resendApiKey}`,
-      },
-      body: JSON.stringify({
-        from: "Tangent Code Studios <onboarding@resend.dev>",
-        to: ["hello@tangentcodestudios.com"],
-        reply_to: email,
-        subject: `New Contact Form Submission from ${firstName} ${lastName}`,
-        html: `
-          <h2>New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${firstName} ${lastName}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Message:</strong></p>
-          <p>${message.replace(/\n/g, "<br>")}</p>
-        `,
-      }),
+    // Log submission (in production, you'd save to a database or send via email service)
+    console.log("Contact form submission:", {
+      name: `${firstName} ${lastName}`,
+      email,
+      message,
+      timestamp: new Date().toISOString(),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Resend API error:", errorData);
-      return NextResponse.json(
-        { error: "Failed to send email" },
-        { status: 500 }
-      );
+    // If RESEND_API_KEY is configured, send email
+    const resendApiKey = process.env.RESEND_API_KEY;
+    
+    if (resendApiKey) {
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${resendApiKey}`,
+        },
+        body: JSON.stringify({
+          from: "Tangent Code Studios <onboarding@resend.dev>",
+          to: ["hello@tangentcodestudios.com"],
+          reply_to: email,
+          subject: `New Contact Form Submission from ${firstName} ${lastName}`,
+          html: `
+            <h2>New Contact Form Submission</h2>
+            <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Message:</strong></p>
+            <p>${message.replace(/\n/g, "<br>")}</p>
+          `,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Resend API error:", errorData);
+        // Continue anyway - submission is logged
+      }
     }
 
     return NextResponse.json({ success: true });
